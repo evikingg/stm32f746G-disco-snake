@@ -252,16 +252,16 @@ int main(void)
 	  }
 
 	  if ( TS_State.touchDetected ) {
-		  uint16_t X = TS_State.touchX[0];
-		  uint16_t Y = TS_State.touchY[0];
+		  float X = TS_State.touchX[0];
+		  float Y = TS_State.touchY[0];
 
-		  if (( Y < 100 ) && ( X > 100 ) && (X < 380) && ( dir[1] != DOWN )) {
-			  dir[0] = UP;
-		  } else if (( Y > 172 ) && ( X > 100 ) && ( X < 380 ) && ( dir[1] != UP )) {
+		  if (( Y > 0.567 * X ) && ( Y > -0.567 * X + 272 ) && ( dir[1] != UP )) {
 			  dir[0] = DOWN;
-		  } else if (( X < 100 ) && ( dir[1] != RIGHT )) {
+		  } else if (( Y < 0.567 * X ) && ( Y < -0.567 * X + 272 ) && ( dir[1] != DOWN )) {
+			  dir[0] = UP;
+		  } else if (( Y > 0.567 * X ) && ( Y < -0.567 * X + 272 ) && ( dir[1] != RIGHT )) {
 			  dir[0] = LEFT;
-		  } else if (( X > 380 ) && ( dir[1] != LEFT )) {
+		  } else if (( Y < 0.567 * X ) && ( Y > -0.567 * X + 272 ) && ( dir[1] != LEFT )) {
 			  dir[0] = RIGHT;
 		  }
 	  }
